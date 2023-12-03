@@ -23,6 +23,7 @@ CREATE TABLE Car
   model VARCHAR(20) NOT NULL,
   color VARCHAR(20) NOT NULL,
   year_of_manufacture INT NOT NULL,
+  price INT NOT NULL,
   purchaser_id INT NOT NULL,
   PRIMARY KEY (car_id),
   FOREIGN KEY (purchaser_id) REFERENCES Purchaser(purchaser_id)

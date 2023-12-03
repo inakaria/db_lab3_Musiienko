@@ -1,14 +1,16 @@
-SELECT first_name, last_name, CONCAT(brand, ' ', model), color
+-- Загальна сума, на яку покупці зробили замовлення
+SELECT CONCAT(LEFT(first_name, 1), '. ', last_name) AS customer, price
 FROM purchaser
-NATURAL JOIN car;
+JOIN car using (purchaser_id)
+GROUP BY customer, price;
 
-SELECT CONCAT(LEFT(first_name, 1), '. ', last_name), card_type
-FROM purchaser
-NATURAL JOIN credit_card
-WHERE card_type <> 'mastercard';
+-- Частка замовлень через кожен вид платежу, окрім mastercard
+SELECT card_type, COUNT(*) as count
+FROM credit_card
+GROUP BY card_type
+HAVING card_type <> 'mastercard';
 
-SELECT country, brand, model, year_of_manufacture
+-- Залежність ціни від року виготовлення автомобіля
+SELECT year_of_manufacture, price
 FROM car
-NATURAL JOIN purchaser
-ORDER BY year_of_manufacture DESC
-LIMIT 3;
+ORDER BY year_of_manufacture;
